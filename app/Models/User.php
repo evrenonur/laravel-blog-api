@@ -19,6 +19,9 @@ class User extends Authenticatable implements JWTSubject
      *
      * @var array<int, string>
      */
+
+    protected $table = 'users';
+    protected $primaryKey = 'id';
     protected $fillable = [
         'name',
         'email',
@@ -51,6 +54,22 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->role == 'admin';
     }
+
+    public function IsUser(): bool
+    {
+        return $this->role == 'user';
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', 1);
+    }
+
+    public function scopeRole($query, $role = 'user')
+    {
+        return $query->where('role', $role);
+    }
+
 
     public function getJWTIdentifier()
     {

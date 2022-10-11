@@ -168,4 +168,9 @@ class BlogController extends Controller
             return redirect()->back()->with('error', 'Yazı silinemedi.');
         }
     }
+
+    public function comments($id){
+        $comments = BlogPosts::with('comments')->findorfail($id);
+        return view('backend.blog.comments', compact('comments'));
+    }
 }

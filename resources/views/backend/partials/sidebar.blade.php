@@ -54,7 +54,11 @@
                         </ul>
                     </div>
                 </li>
-
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{route('admin.users.index')}}" >
+                        <i class="mdi mdi-account"></i><span>Kullanıcılar</span>
+                    </a>
+                </li>
 
 
 
