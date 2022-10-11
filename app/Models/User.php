@@ -24,6 +24,7 @@ class User extends Authenticatable implements JWTSubject
         'email',
         'password',
         'role',
+        'is_active'
     ];
 
     /**
@@ -46,6 +47,10 @@ class User extends Authenticatable implements JWTSubject
     ];
 
 
+    public function IsAdmin(): bool
+    {
+        return $this->role == 'admin';
+    }
 
     public function getJWTIdentifier()
     {
