@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\BlogPosts;
 use App\Models\Categories;
+use App\Models\Comments;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File as FacadesFile;
 use Illuminate\Support\Facades\Validator;
@@ -172,5 +173,31 @@ class BlogController extends Controller
     public function comments($id){
         $comments = BlogPosts::with('comments')->findorfail($id);
         return view('backend.blog.comments', compact('comments'));
+    }
+
+    public function commentDelete($id){
+        $comment = Comments::findorfail($id);
+        if($comment){
+            $comment->delete();
+            return redirect()->back()->with('success', 'Yorum başarıyla silindi.');
+        }else{
+            return redirect()->back()->with('error', 'Yorum silinemedi.');
+        }
+    }
+
+    public function commentStatus(Request $request){
+        $id = $request->id;
+        $comment = Comments::findorfail($id);
+        if($comment){
+            if($comment->status == 1){
+                $comment->status = 0;
+            }else{
+                $comment->status = 1;
+            }
+            $comment->update();
+            return response()->json($comment);
+        }else{
+            return response()->json($comment);
+        }
     }
 }

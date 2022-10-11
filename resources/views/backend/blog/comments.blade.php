@@ -24,7 +24,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($comments as $comment)
+                                    @foreach($comments->comments as $comment)
                                         <tr>
                                             <th scope="row">{{$comment->id}}</th>
                                             <td>{{$comment->user->name}}</td>
@@ -32,18 +32,22 @@
                                             <td>{{$comment->body}}</td>
                                             <td>{{$comment->created_at}}</td>
                                             <td>
-                                            <td>
                                                 @if($comment->status)
-                                                    <span class="badge bg-success">Aktif</span>
+                                                    <button type="button" class="btn btn-success btn-sm status" id="{{$comment->id}}" >Aktif</button>
                                                 @else
-                                                    <span class="badge bg-danger">Pasif</span>
+                                                    <button type="button" class="btn btn-danger btn-sm status" id="{{$comment->id}}">Pasif</button>
                                                 @endif
                                             </td>
-                                            </td>
                                             <td>
-
+                                                <form action="{{route('admin.blog.comment.destroy',$comment->id)}}"
+                                                      method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="mdi mdi-trash-can"></i></button>
+                                                </form>
                                             </td>
                                         </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
 
@@ -57,5 +61,28 @@
         </div>
         <!--end col-->
     </div>
+    <script>
+            $('.status').click(function () {
+                const id = $(this).attr('id');
+                $.ajax({
+                    type: 'POST',
+                    url: '{{route('admin.blog.comment.status')}}',
+                    data: {id: id,'_token': '{{csrf_token()}}'},
+                    success: function (data) {
+                        if (data.status == 1) {
+                            $('#'+id).removeClass('btn-danger');
+                            $('#'+id).addClass('btn-success');
+                            $('#'+id).text('Aktif');
 
+                        } else {
+                            $('#'+id).removeClass('btn-success');
+                            $('#'+id).addClass('btn-danger');
+                            $('#'+id).text('Pasif');
+                        }
+                    }
+                });
+
+            });
+
+    </script>
 @endsection

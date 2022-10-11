@@ -15,7 +15,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['auth','adm
     Route::resource('blog', BlogController::class);
     Route::resource('ckeditor', CkeditorFileUploadController::class);
     Route::resource('users', Users::class);
-    Route::resource('comments', CommentsController::class);
+    Route::get('blog/comments/{id}', [BlogController::class, 'comments'])->name('blog.comments');
+    Route::post('blog/comments/status', [BlogController::class, 'commentStatus'])->name('blog.comment.status');
+    Route::delete('blog/comment/{id}', [BlogController::class, 'commentDelete'])->name('blog.comment.destroy');
 });
 
 Route::get('/', function () {})->name('home');
