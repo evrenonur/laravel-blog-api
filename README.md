@@ -1,64 +1,94 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Laravel Blog Api
 
-## About Laravel
+Mobil uygulamalarınız için geliştirdiği blog servisi.
+Kategori, Blog, Yorum, Kullanıcı işlemleri gibi birçok işlemi servis üzerinden yapabilir aynı zamanda servis API ile uygulamalarınız ile iletişime geçebilirsiniz.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+## Yönetim Paneli
+Laravel uygulaması standart kurulum adımlarından sonra /admin adresine yapacağınız işlem ile giriş yapabilir
+uygulama içi çeşitli düzenlemelerde bulunabilirsiniz.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## API Kullanımı
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+#### Kullanıcı Kayıt
 
-## Laravel Sponsors
+```http
+  Post /api/register
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+| Parametre | Tip     | Açıklama                |
+| :-------- | :------- | :------------------------- |
+| `name` | `string` | **Gerekli**. Kullanıcı adı. |
+| `email` | `string` | **Gerekli**. Kullanıcı email. |
+| `password` | `string` | **Gerekli**. Kullanıcı şifre. |
+| `c_password` | `string` | **Gerekli**. Kullanıcı şifre tekrarı. |
 
-### Premium Partners
+Kayıt işlemi başarılı ise kullanıcı bilgilerini JSON formatında döndürür.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+#### Kullanıcı Login
 
-## Contributing
+```http
+  Post /api/login
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+| Parametre | Tip     | Açıklama                       |
+| :-------- | :------- | :-------------------------------- |
+| `email` | `string` | **Gerekli**. Kullanıcı email. |
+| `password` | `string` | **Gerekli**. Kullanıcı şifre. |
 
-## Code of Conduct
+Login işlemi sonrası diğer API isteklerinizde kullanılmak adına JWT token gönderilmektedir.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Security Vulnerabilities
+#### Token refresh
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```http
+  Get /api/refresh
+```
 
-## License
+```php
+  $response = $client->request('GET', '/api/refresh', [
+    'headers' => [
+        'Authorization' => 'Bearer '.$token,
+        'Accept' => 'application/json',
+    ],
+]);
+```
+Kullanım süresi sona eren JWT token refresh adresine göderilerek kullanıcının çıkış yapmasını
+ve tekrar giriş yapmasına gerek kalmadan yenilemektedir.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+#### Kullanıcı Bilgileri
+
+```http
+  get /api/refresh
+```
+
+```php
+  $response = $client->request('GET', '/api/user', [
+    'headers' => [
+        'Authorization' => 'Bearer '.$token,
+        'Accept' => 'application/json',
+    ],
+]);
+```
+Kullanıcı ile ilgileri bilgilerin alınması için /api/user adresine istek atılmalıdır.
+
+  
+## Kullanılan Teknolojiler
+
+**İstemci:** Laravel, Bootstrap
+
+**Sunucu:** PHP, Apache 2.4 MySql
+
+  
+
+
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
+
+[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
+
+[![AGPL License](https://img.shields.io/badge/license-AGPL-blue.svg)](http://www.gnu.org/licenses/agpl-3.0)
+
+  
