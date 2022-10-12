@@ -58,9 +58,11 @@ class PostsApiController extends Controller
                 'content' => $post->content,
                 'category' => $post->category->category_name,
                 'category_id' => $post->category->id,
+                'views' => $post->views_count,
                 'image' => asset('uploads/' . $post->image),
                 'created_at' => $post->created_at,
             ];
+            $post->increment('views_count');
             return $this->sendResponse($data);
         } else {
             return $this->sendError([], 'Post not found', 404);
