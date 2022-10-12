@@ -74,7 +74,7 @@ Kullanıcı ile ilgileri bilgilerin alınması için /api/user adresine istek at
 #### Paylaşılan Blog Yazıları
 
 ```http
-  get /api/posts
+  Get /api/posts
 ```
 
 ```php
@@ -105,7 +105,7 @@ Response Preview
 #### Paylaşılan Blog Detay
 
 ```http
-  get /api/post{id}
+  Get /api/post{id}
 ```
 
 ```php
@@ -135,7 +135,7 @@ Response Preview
 #### Kategoriler
 
 ```http
-  get /api/categories
+  Get /api/categories
 ```
 
 ```php
@@ -162,7 +162,7 @@ Response Preview
 #### Kategori Detay
 
 ```http
-  get /api/categories/{id}
+  Get /api/categories/{id}
 ```
 
 ```php
