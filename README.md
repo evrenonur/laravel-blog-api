@@ -62,7 +62,7 @@ ve tekrar giriş yapmasına gerek kalmadan yenilemektedir.
 #### Kullanıcı Bilgileri
 
 ```http
-  get /api/refresh
+  Get /api/user
 ```
 
 ```php
