@@ -1,15 +1,11 @@
 
-# Laravel Blog Api
-
-Mobil uygulamalarınız için geliştirdiği blog servisi.
-Kategori, Blog, Yorum, Kullanıcı işlemleri gibi birçok işlemi servis üzerinden yapabilir aynı zamanda servis API ile uygulamalarınız ile iletişime geçebilirsiniz.
-
-
 
 
 ## Yönetim Paneli
 Laravel uygulaması standart kurulum adımlarından sonra /admin adresine yapacağınız işlem ile giriş yapabilir
 uygulama içi çeşitli düzenlemelerde bulunabilirsiniz.
+Uygulama içerisinde api ile ilk kayıt sonrasında users tablosunda role sütuna admin kullanıcısı için role admin değeri ataması yapınız.
+Sonrasında admin panele erişim imkanı sağlayacaksınız.
 
 ## API Kullanımı
 
@@ -75,20 +71,122 @@ ve tekrar giriş yapmasına gerek kalmadan yenilemektedir.
 ```
 Kullanıcı ile ilgileri bilgilerin alınması için /api/user adresine istek atılmalıdır.
 
-  
-## Kullanılan Teknolojiler
+#### Paylaşılan Blog Yazıları
 
-**İstemci:** Laravel, Bootstrap
+```http
+  get /api/posts
+```
 
-**Sunucu:** PHP, Apache 2.4 MySql
+```php
+  $response = $client->request('GET', '/api/posts', [
+    'headers' => [
+        'Authorization' => 'Bearer '.$token,
+        'Accept' => 'application/json',
+    ],
+]);
 
-  
+Response Preview
 
+{
+	"data": [
+		{
+			"id": 1,
+			"title": "test",
+			"content": "<p>test<\/p>",
+			"category": "Test Kategori",
+			"category_id": 1,
+			"image": "http:\/\/laravelnews.test\/uploads\/1665493945.jpeg",
+			"created_at": null
+		}
+	],
+	"message": "success"
+}
+```
+#### Paylaşılan Blog Detay
 
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
+```http
+  get /api/post{id}
+```
 
-[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
+```php
+  $response = $client->request('GET', '/api/posts/{id}', [
+    'headers' => [
+        'Authorization' => 'Bearer '.$token,
+        'Accept' => 'application/json',
+    ],
+]);
 
-[![AGPL License](https://img.shields.io/badge/license-AGPL-blue.svg)](http://www.gnu.org/licenses/agpl-3.0)
+Response Preview
 
-  
+{
+	"data": {
+		"id": 1,
+		"title": "test",
+		"content": "<p>test<\/p>",
+		"category": "Test Kategori",
+		"category_id": 1,
+		"image": "http:\/\/laravelnews.test\/uploads\/1665493945.jpeg",
+		"created_at": null
+	},
+	"message": "success"
+}
+```
+
+#### Kategoriler
+
+```http
+  get /api/categories
+```
+
+```php
+  $response = $client->request('GET', '/api/categories', [
+    'headers' => [
+        'Authorization' => 'Bearer '.$token,
+        'Accept' => 'application/json',
+    ],
+]);
+
+Response Preview
+{
+	"data": [
+		{
+			"id": 1,
+			"category_name": "Test Kategori",
+			"category_image": "http:\/\/laravelnews.test\/uploads\/1665493930.jpeg"
+		}
+	],
+	"message": "success"
+}
+```
+
+#### Kategori Detay
+
+```http
+  get /api/categories/{id}
+```
+
+```php
+  $response = $client->request('GET', '/api/categories/{id}', [
+    'headers' => [
+        'Authorization' => 'Bearer '.$token,
+        'Accept' => 'application/json',
+    ],
+]);
+
+Response Preview
+{
+	"data": [
+		{
+			"id": 1,
+			"title": "test",
+			"content": "<p>test<\/p>",
+			"category": "Test Kategori",
+			"category_id": 1,
+			"image": "http:\/\/laravelnews.test\/uploads\/1665493945.jpeg",
+			"created_at": null
+		}
+	],
+	"message": "success"
+}
+```
+
