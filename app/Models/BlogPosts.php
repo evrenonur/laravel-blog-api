@@ -34,4 +34,9 @@ class BlogPosts extends Model
         return $this->hasMany(Comments::class, 'post_id');
     }
 
+    public function scopePublished($query)
+    {
+        return $query->where('is_published', 1);
+    }
+
 }

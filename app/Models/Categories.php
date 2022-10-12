@@ -15,7 +15,7 @@ class Categories extends Model
 
     public function blogPosts()
     {
-        return $this->hasMany(BlogPosts::class);
+        return $this->hasMany(BlogPosts::class, 'category_id', 'id');
     }
 
     public function scopeActive($query)

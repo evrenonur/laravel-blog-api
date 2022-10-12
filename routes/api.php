@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PostsApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,9 +18,12 @@ Route::get('/user', [AuthController::class, 'getUser']);
 Route::get('/refresh', [AuthController::class, 'refresh']);
 
 Route::middleware('jwt.verify')->group(function() {
-    Route::get('/dashboard', function() {
-        return response()->json(['message' => 'Welcome to dashboard'], 200);
-    });
+
+    Route::get('/posts', [PostsApiController::class, 'index']);
+    Route::get('/posts/{id}', [PostsApiController::class, 'post']);
+    Route::get('/categories', [PostsApiController::class, 'categories']);
+    Route::get('/categories/{id}', [PostsApiController::class, 'categoryPosts']);
+
 });
 
 

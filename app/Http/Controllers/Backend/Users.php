@@ -82,7 +82,6 @@ class Users extends Controller
             $data = array(
                 'name' => $request->name,
                 'email' => $request->email,
-                'is_active' => $request->is_active,
             );
             if ($request->password) {
                 $data['password'] = bcrypt($request->password);

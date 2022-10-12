@@ -28,6 +28,9 @@
 
             </div>
 
+
+
+
             <div class="d-flex align-items-center">
 
 
@@ -65,7 +68,7 @@
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
                         <!-- item-->
-                        <a class="dropdown-item" href="pages-profile.html"><i
+                        <a class="dropdown-item profile" ><i
                                 class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span
                                 class="align-middle">Profil</span></a>
 
