@@ -128,6 +128,7 @@ Response Preview
 		"content": "<p>test<\/p>",
 		"category": "Test Kategori",
 		"category_id": 1,
+		"views": 2,
 		"image": "http:\/\/laravelnews.test\/uploads\/1665493945.jpeg",
 		"created_at": null
 	},
