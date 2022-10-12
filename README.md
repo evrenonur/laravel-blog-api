@@ -7,6 +7,9 @@ uygulama içi çeşitli düzenlemelerde bulunabilirsiniz.
 Uygulama içerisinde api ile ilk kayıt sonrasında users tablosunda role sütuna admin kullanıcısı için role admin değeri ataması yapınız.
 Sonrasında admin panele erişim imkanı sağlayacaksınız.
 
+![Screenshot](https://user-images.githubusercontent.com/49561437/195366217-95d91ed7-faa3-46e0-98a7-dbbdca73c8cb.png)
+
+
 ## API Kullanımı
 
 #### Kullanıcı Kayıt
