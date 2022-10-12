@@ -193,4 +193,57 @@ Response Preview
 	"message": "success"
 }
 ```
+#### Yorumlar
 
+```http
+  Get /api/comments/{postID}
+```
+
+```php
+  $response = $client->request('GET', '/api/comments/{postID}', [
+    'headers' => [
+        'Authorization' => 'Bearer '.$token,
+        'Accept' => 'application/json',
+    ],
+]);
+
+Response Preview
+{
+	"data": [
+		{
+			"id": 3,
+			"name": "Onur Evren",
+			"comment": "test comment",
+			"created_at": null
+		}
+	],
+	"message": "success"
+}
+```
+#### Yorum Ekleme
+```http
+  Get /api/comments/{postID}
+```
+
+```php
+  $response = $client->request('GET', '/api/comments/{postID}', [
+    'headers' => [
+        'Authorization' => 'Bearer '.$token,
+        'Accept' => 'application/json',
+    ],
+    'form_params' => [      
+        'body' => 'Deneme Yorum',
+    ],
+]);
+
+Response Preview
+{
+	"data": {
+		"id": 4,
+		"name": "Onur Evren",
+		"comment": "Deneme Yorum",
+		"created_at": "2022-10-12T14:34:54.000000Z"
+	},
+	"message": "success"
+}
+```

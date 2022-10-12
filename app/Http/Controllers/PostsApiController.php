@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BlogPosts;
 use App\Models\Categories;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PostsApiController extends Controller
 {
@@ -107,6 +108,51 @@ class PostsApiController extends Controller
         } else {
             return $this->sendError([], 'No posts found', 404);
         }
+    }
+
+    public function comments($id){
+        $post = BlogPosts::findOrfail($id);
+        if ($post) {
+            $comments = $post->comments()->active()->get();
+            $data = [];
+            foreach ($comments as $comment) {
+                $data[] = [
+                    'id' => $comment->id,
+                    'name' => $comment->user->name,
+                    'comment' => $comment->body,
+                    'created_at' => $comment->created_at,
+                ];
+            }
+            return $this->sendResponse($data);
+        } else {
+            return $this->sendError([], 'No comments found', 404);
+        }
+    }
+
+    public function comment($id){
+        $post = BlogPosts::findOrfail($id);
+        if ($post) {
+            $validator = Validator::make(request()->all(), [
+                'body' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return $this->sendError([], 'Validation Error', 422);
+            }
+            $comment = $post->comments()->create([
+                'body' => request()->body,
+                'user_id' => auth()->user()->id,
+            ]);
+            $data = [
+                'id' => $comment->id,
+                'name' => $comment->user->name,
+                'comment' => $comment->body,
+                'created_at' => $comment->created_at,
+            ];
+            return $this->sendResponse($data);
+        } else {
+            return $this->sendError([], 'No comments found', 404);
+        }
+
     }
 
 }

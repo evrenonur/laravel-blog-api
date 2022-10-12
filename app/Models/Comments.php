@@ -33,6 +33,10 @@ class Comments extends Model
         return $this->hasMany(Comments::class, 'parent_id');
     }
 
+    public function scopeActive($query)
+    {
+        return $query->where('status', 1);
+    }
 
 
 

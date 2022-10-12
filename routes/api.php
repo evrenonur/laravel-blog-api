@@ -23,6 +23,8 @@ Route::middleware('jwt.verify')->group(function() {
     Route::get('/posts/{id}', [PostsApiController::class, 'post']);
     Route::get('/categories', [PostsApiController::class, 'categories']);
     Route::get('/categories/{id}', [PostsApiController::class, 'categoryPosts']);
+    Route::get('/comments/{id}', [PostsApiController::class, 'comments']);
+    Route::post('/comments/{id}', [PostsApiController::class, 'comment']);
 
 });
 
