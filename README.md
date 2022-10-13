@@ -222,11 +222,11 @@ Response Preview
 ```
 #### Yorum Ekleme
 ```http
-  Get /api/comments/{postID}
+  Post /api/comments/{postID}
 ```
 
 ```php
-  $response = $client->request('GET', '/api/comments/{postID}', [
+  $response = $client->request('POST', '/api/comments/{postID}', [
     'headers' => [
         'Authorization' => 'Bearer '.$token,
         'Accept' => 'application/json',
