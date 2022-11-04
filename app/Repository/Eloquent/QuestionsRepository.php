@@ -45,15 +45,6 @@ class QuestionsRepository implements \App\Repository\QuestionsRepositoryInterfac
                 'created_at' => $question->created_at->translatedFormat('d F Y'),
                 'answer_count' => $question->answers->where('is_published', 1)->count(),
             ];
-            $answers = $question->answers()->published()->get();
-            foreach ($answers as $answer) {
-                $data['answers'][] = [
-                    'id' => $answer->id,
-                    'body' => $answer->body,
-                    'user' => $answer->user->name,
-                    'created_at' => $answer->created_at->translatedFormat('d F Y'),
-                ];
-            }
             return $data;
         } else {
             return false;
