@@ -55,6 +55,11 @@
                     </div>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{route('admin.questions.index')}}" >
+                        <i class="mdi mdi-message"></i><span>Sorular</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link menu-link" href="{{route('admin.users.index')}}" >
                         <i class="mdi mdi-account"></i><span>Kullanıcılar</span>
                     </a>

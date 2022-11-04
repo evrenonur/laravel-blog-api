@@ -30,6 +30,7 @@
                                         <th scope="col">Başlık</th>
                                         <th scope="col">Kategori</th>
                                         <th scope="col">Durum</th>
+                                        <th scope="col">Slider</th>
                                         <th scope="col">Yorum</th>
                                         <th scope="col">Görüntülenme Sayısı</th>
                                         <th scope="col">Yorum Sayısı</th>
@@ -50,6 +51,13 @@
                                                     <span class="badge bg-success">Yayında</span>
                                                 @else
                                                     <span class="badge bg-danger">Yayında Değil</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if($blog->is_slider)
+                                                    <span class="badge bg-success">Aktif</span>
+                                                @else
+                                                    <span class="badge bg-danger">Pasif</span>
                                                 @endif
                                             </td>
                                             <td>

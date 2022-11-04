@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\Api\PostsController;
 use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\CategoriesController;
 use App\Http\Controllers\Backend\CkeditorFileUploadController;
 use App\Http\Controllers\Backend\CommentsController;
+use App\Http\Controllers\Backend\QuestionsController;
 use App\Http\Controllers\Backend\Users;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\Backend\HomeController;
@@ -18,6 +20,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => ['auth','adm
     Route::get('blog/comments/{id}', [BlogController::class, 'comments'])->name('blog.comments');
     Route::post('blog/comments/status', [BlogController::class, 'commentStatus'])->name('blog.comment.status');
     Route::delete('blog/comment/{id}', [BlogController::class, 'commentDelete'])->name('blog.comment.destroy');
+    Route::resource('questions', QuestionsController::class);
+    Route::get('questions/active/{id}', [QuestionsController::class, 'active'])->name('questions.active');
+    Route::delete('questions/answer/delete/{id}', [QuestionsController::class, 'answerDestroy'])->name('questions.answer.destroy');
+
 });
 
 Route::get('/', function () {})->name('home');

@@ -50,6 +50,13 @@
                                 <option value="0" @if($post->is_published == 0) selected @endif>Kapalı</option>
                             </select>
                         </div>
+                        <div class="mb-3">
+                            <label class="form-label">Slider Durumu</label>
+                            <select name="is_slider" class="form-control">
+                                <option value="1" @if($post->is_slider == 1) selected @endif>Açık</option>
+                                <option value="0" @if($post->is_slider == 0) selected @endif>Kapalı</option>
+                            </select>
+                        </div>
                         <div class="text-end">
                             <button type="submit" class="btn btn-primary">Güncelle</button>
                         </div>

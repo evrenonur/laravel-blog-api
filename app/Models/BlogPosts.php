@@ -19,6 +19,7 @@ class BlogPosts extends Model
         'comment_status',
         'views_count',
         'is_published',
+        'is_slider',
     ];
 
     /**
@@ -36,7 +37,19 @@ class BlogPosts extends Model
 
     public function scopePublished($query)
     {
-        return $query->where('is_published', 1);
+        return $query->where('is_published', 1)->orderBy('id', 'desc');
     }
+
+    public function scopeSlider($query)
+    {
+        return $query->where('is_slider', 1);
+    }
+
+    public function scopeNotslider($query, $id = array())
+    {
+
+        return $query->whereNotIn('id', $id);
+    }
+
 
 }

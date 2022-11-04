@@ -48,6 +48,13 @@
                                 <option value="0">Kapalı</option>
                             </select>
                         </div>
+                        <div class="mb-3">
+                            <label class="form-label">Slider Durumu</label>
+                            <select name="is_slider" class="form-control">
+                                <option value="1">Açık</option>
+                                <option value="0">Kapalı</option>
+                            </select>
+                        </div>
 
                         <div class="text-end">
                             <button type="submit" class="btn btn-primary">Kaydet</button>

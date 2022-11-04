@@ -34,6 +34,7 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
+
         $input = $request->only('name', 'email', 'password', 'c_password');
 
         $validator = Validator::make($input, [
@@ -42,6 +43,7 @@ class AuthController extends Controller
             'password' => 'required|min:8',
             'c_password' => 'required|same:password',
         ]);
+
 
         if ($validator->fails()) {
             return $this->sendError($validator->errors(), 'Validation Error', 422);
@@ -78,10 +80,17 @@ class AuthController extends Controller
             return $this->sendError([], $e->getMessage(), 500);
         }
 
-        $success = [
-            'token' => $token,
-        ];
-        return $this->sendResponse($success, 'successful login', 200);
+        $user = auth()->user();
+        if ($user->is_active == 1) {
+            $success['token'] = $token;
+            $success = [
+                'token' => $token,
+            ];
+            return $this->sendResponse($success, 'successful login', 200);
+        } else {
+            return $this->sendError([], "You are not authorized to access this resource", 401);
+        }
+
     }
 
     public function getUser()

@@ -48,6 +48,7 @@ class BlogController extends Controller
             'category_id' => 'required',
             'comment_status' => 'required',
             'is_published' => 'required',
+            'is_slider' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg',
         ]);
         if ($validator->fails()) {
@@ -64,6 +65,7 @@ class BlogController extends Controller
                     'category_id' => $request->category_id,
                     'comment_status' => $request->comment_status,
                     'is_published' => $request->is_published,
+                    'is_slider' => $request->is_slider,
                     'image' => $name,
                 ]);
                 if ($blog) {
@@ -116,12 +118,14 @@ class BlogController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $validator = Validator::make($request->all(), [
             'title' => 'required',
             'contents' => 'required',
             'category_id' => 'required',
             'comment_status' => 'required',
             'is_published' => 'required',
+            'is_slider' => 'required',
         ]);
         if ($validator->fails()) {
             return redirect()->back()->with('error', 'Yazı güncellenemedi.');
@@ -132,6 +136,7 @@ class BlogController extends Controller
                 'category_id' => $request->category_id,
                 'comment_status' => $request->comment_status,
                 'is_published' => $request->is_published,
+                'is_slider' => $request->is_slider,
             );
             if ($request->hasFile('image')) {
                 $image = $request->file('image');

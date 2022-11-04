@@ -22,6 +22,7 @@ class CreateTableBlogPosts extends Migration
             $table->boolean('comment_status')->default(1);
             $table->bigInteger('views_count')->default(0);
             $table->boolean('is_published')->default(true);
+            $table->integer('is_slider')->default(0);
             $table->timestamps();
         });
     }

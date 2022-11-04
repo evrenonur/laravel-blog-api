@@ -1,7 +1,11 @@
 <?php
+
+use App\Http\Controllers\Api\CategoriesController;
+use App\Http\Controllers\Api\CommentsController;
+use App\Http\Controllers\Api\PostsController;
+use App\Http\Controllers\Api\QuestionsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostsApiController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
@@ -19,12 +23,19 @@ Route::get('/refresh', [AuthController::class, 'refresh']);
 
 Route::middleware('jwt.verify')->group(function() {
 
-    Route::get('/posts', [PostsApiController::class, 'index']);
-    Route::get('/posts/{id}', [PostsApiController::class, 'post']);
-    Route::get('/categories', [PostsApiController::class, 'categories']);
-    Route::get('/categories/{id}', [PostsApiController::class, 'categoryPosts']);
-    Route::get('/comments/{id}', [PostsApiController::class, 'comments']);
-    Route::post('/comments/{id}', [PostsApiController::class, 'comment']);
+    Route::get('/posts', [PostsController::class, 'index']);
+    Route::get('/posts/{id}', [PostsController::class, 'post']);
+    Route::get('/comments/{id}', [CommentsController::class, 'comments']);
+    Route::post('/comments/{id}', [CommentsController::class, 'createComment']);
+    Route::get('/categories', [CategoriesController::class, 'index']);
+    Route::get('/categories/{id}', [CategoriesController::class, 'categoryPosts']);
+
+    Route::get('/questions', [QuestionsController::class, 'questions']);
+    Route::get('/questions/{id}', [QuestionsController::class, 'question']);
+    Route::post('/answers/{id}', [QuestionsController::class, 'createAnswer']);
+    Route::post('/questions', [QuestionsController::class, 'createQuestion']);
+    Route::get('/questions/answers/{id}', [QuestionsController::class, 'answers']);
+
 
 });
 
