@@ -5,15 +5,13 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 
 use App\Repository\Eloquent\PostsRepository;
-use App\Repository\PostsRepositoryInterface;
 use App\Repository\ReponseRepositoryInterface;
-use Illuminate\Http\Request;
 
 class PostsController extends Controller
 {
 
-    private  $postsRepository;
-    private  $reponseRepository;
+    private PostsRepository $postsRepository;
+    private ReponseRepositoryInterface $reponseRepository;
 
     public function __construct(PostsRepository $postsRepository, ReponseRepositoryInterface $reponseRepository)
     {
