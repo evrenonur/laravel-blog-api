@@ -42,7 +42,7 @@ class BlogPosts extends Model
 
     public function scopeSlider($query)
     {
-        return $query->where('is_slider', 1);
+        return $query->where('is_slider', 1)->limit(3);
     }
 
     public function scopeNotslider($query, $id = array())

@@ -24,6 +24,7 @@ Route::get('/refresh', [AuthController::class, 'refresh']);
 Route::middleware('jwt.verify')->group(function() {
 
     Route::get('/posts', [PostsController::class, 'index']);
+    Route::get('/sliders', [PostsController::class, 'sliderPosts']);
     Route::get('/posts/{id}', [PostsController::class, 'post']);
     Route::get('/comments/{id}', [CommentsController::class, 'comments']);
     Route::post('/comments/{id}', [CommentsController::class, 'createComment']);

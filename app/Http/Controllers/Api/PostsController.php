@@ -42,4 +42,14 @@ class PostsController extends Controller
         }
     }
 
+    public function sliderPosts()
+    {
+        $posts = $this->postsRepository->sliderPosts();
+        if ($posts) {
+            return $this->reponseRepository->sendResponse($posts);
+        }else{
+            return $this->reponseRepository->sendError([],'No posts found', 404);
+        }
+    }
+
 }

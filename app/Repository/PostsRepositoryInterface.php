@@ -10,4 +10,5 @@ interface PostsRepositoryInterface
     public function updatePost($id, $data);
     public function deletePost($id);
     public function getbyId($id);
+    public function sliderPosts();
 }
